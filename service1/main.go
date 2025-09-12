@@ -47,7 +47,7 @@ func getStatus(c *gin.Context) {
 	// post msg to Status service
 	// write status to log file
 	// get status of service2
-	c.String(http.StatusOK, "%s\n<status of service2>", statusMsg)
+	c.String(http.StatusOK, "%s", statusMsg)
 }
 
 func getLog(c *gin.Context) {

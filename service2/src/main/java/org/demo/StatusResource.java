@@ -19,6 +19,6 @@ public class StatusResource {
        var currentTime = java.time.Instant.now();
        java.time.Duration duration = java.time.Duration.between(startTime, currentTime);
        var usableSpace = new File("/").getUsableSpace() / (1024 * 1024); // convert bytes to mb
-       return String.format("%s: uptime %s hours, free disk in root: %d MBytes", currentTime.truncatedTo(ChronoUnit.SECONDS), usableSpace);
+       return String.format("%s: uptime %s hours, free disk in root: %d MBytes", currentTime.truncatedTo(ChronoUnit.SECONDS), duration,usableSpace);
     }
 }
