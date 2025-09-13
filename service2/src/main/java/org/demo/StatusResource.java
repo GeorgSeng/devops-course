@@ -33,10 +33,11 @@ public class StatusResource {
        var logMsg = String.format("%s: uptime %s s hours, free disk in root: %d MBytes\n", currentTime.truncatedTo(ChronoUnit.SECONDS), upTimeInHours, usableSpace);
         
         try {
-            var path = java.nio.file.Path.of("./vstorage");
+            var path = java.nio.file.Path.of("./externalData/vstorage");
             Files.write(path, logMsg.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.APPEND);
         } catch (Exception e) {
             Log.error("Could not write to the vStorage File");
+            Log.error(e);
         }
 
        return logMsg;

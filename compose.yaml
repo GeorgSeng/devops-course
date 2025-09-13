@@ -14,12 +14,16 @@ services:
      - "8199:8080"
      volumes:
       - ./:/app/externalData:z
-  # service2:
-  #   #image: exercise1/service2
-  #   build: 
-  #     context: .
-  #     dockerfile: ./service2/Dockerfile
-  #   ports:
-  #     - "8080:8080"
-  #   volumes:
-  #     - ./vstorage:/deployments/app/vstorage
+  service2:
+    #image: exercise1/service2
+    user: root
+    build: 
+      context: .
+      dockerfile: ./service2/Dockerfile
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/deployments/externalData:z
