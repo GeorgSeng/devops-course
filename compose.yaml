@@ -1,7 +1,25 @@
 services:
+  setup:
+    image: alpine:3.21
+    command: sh -c "touch -a /app/vstorage"
+    volumes:
+      - .:/app:z
   service1:
-    build: ./service1/
-    ports: 
-    - "8199:8080"
-  service2:
-    build: ./service2/
+     user: root
+     build: ./service1/
+     depends_on:
+      setup:
+        condition: service_completed_successfully
+     ports: 
+     - "8199:8080"
+     volumes:
+      - ./:/app/externalData:z
+  # service2:
+  #   #image: exercise1/service2
+  #   build: 
+  #     context: .
+  #     dockerfile: ./service2/Dockerfile
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./vstorage:/deployments/app/vstorage
