@@ -11,9 +11,12 @@ services:
       setup:
         condition: service_completed_successfully
      ports: 
-     - "8199:8080"
+      - "8199:8080"
      volumes:
       - ./:/app/externalData:z
+     networks:
+      - frontend
+      - backend
   service2:
     #image: exercise1/service2
     user: root
@@ -23,7 +26,13 @@ services:
     depends_on:
       setup:
         condition: service_completed_successfully
-    ports:
-      - "8080:8080"
+    #ports:
+    #  - "8080:8080"
     volumes:
       - ./:/deployments/externalData:z
+    networks:
+      - backend
+networks:
+  frontend:
+    driver: bridge
+  backend:

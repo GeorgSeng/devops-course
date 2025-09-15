@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -46,7 +47,22 @@ func getStatus(c *gin.Context) {
 		log.Fatal(err)
 	}
 	// get status of service2
-	c.String(http.StatusOK, "%s", statusMsg)
+	res, err := http.Get("http://service2:8080/status")
+	if err != nil {
+		println("Could not reache service2")
+		println(err)
+		c.String(http.StatusOK, "%s", statusMsg)
+		return
+	}
+	if res.StatusCode == http.StatusOK {
+		body, err := io.ReadAll(res.Body)
+		if err != nil {
+			println("could not read response body")
+			println(err)
+		} else {
+			c.String(http.StatusOK, "%s%s", statusMsg, string(body))
+		}
+	}
 }
 
 func getLog(c *gin.Context) {
