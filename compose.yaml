@@ -32,7 +32,22 @@ services:
       - ./:/deployments/externalData:z
     networks:
       - backend
+  storage:
+    #image: exercise1/service2
+    user: root
+    build: ./storage
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+    #ports:
+    #  - "8080:8080"
+    volumes:
+      - storage_data:/app:z
+    networks:
+      - backend
 networks:
   frontend:
     driver: bridge
   backend:
+volumes:
+  storage_data:
