@@ -35,10 +35,9 @@ public class StatusResource {
        var currentTime = java.time.Instant.now();
        Log.info(currentTime);
        java.time.Duration duration = java.time.Duration.between(StartUpTime.getStartUpTime(), currentTime);
-       //var upTimeInHours = duration.toHours();
-       var upTimeInHours = duration.toSeconds();
+       var upTimeInHours = duration.toSeconds()/60.0;
        var usableSpace = new File("/").getUsableSpace() / (1024 * 1024); // convert bytes to mb
-       var logMsg = String.format("%s: uptime %s s hours, free disk in root: %d MBytes\n", currentTime.truncatedTo(ChronoUnit.SECONDS), upTimeInHours, usableSpace);
+       var logMsg = String.format("%s: uptime %.8f hours, free disk in root: %d MBytes", currentTime.truncatedTo(ChronoUnit.SECONDS), upTimeInHours, usableSpace);
         
        // send the status to the storage service
        var logPost = HttpRequest
@@ -57,7 +56,7 @@ public class StatusResource {
        // wirte the status to the vstorage log file
         try {
             var path = java.nio.file.Path.of("./externalData/vstorage");
-            Files.write(path, logMsg.getBytes(), StandardOpenOption.CREATE,StandardOpenOption.APPEND);
+            Files.write(path, (logMsg+"\n").getBytes(), StandardOpenOption.CREATE,StandardOpenOption.APPEND);
         } catch (Exception e) {
             Log.error("Could not write to the vStorage File");
             Log.error(e);

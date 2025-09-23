@@ -10,6 +10,9 @@ services:
      depends_on:
       setup:
         condition: service_completed_successfully
+      service2:
+        condition: service_healthy
+
      ports: 
       - "8199:8080"
      volumes:
@@ -23,6 +26,11 @@ services:
     build: 
       context: .
       dockerfile: ./service2/Dockerfile
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/q/health/live"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
     depends_on:
       setup:
         condition: service_completed_successfully
@@ -36,9 +44,11 @@ services:
     #image: exercise1/service2
     user: root
     build: ./storage
-    depends_on:
-      setup:
-        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
     #ports:
     #  - "8080:8080"
     volumes:
