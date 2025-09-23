@@ -87,7 +87,7 @@ func getStatus(c *gin.Context) {
 		log.Printf("Service2 had an issue processing, status code: %v\n", res.StatusCode)
 		return
 	}
-	data := []byte(fmt.Sprintf("%s%s", statusMsg, string(body)))
+	data := []byte(fmt.Sprintf("%s\n%s", statusMsg, string(body)))
 	c.Data(http.StatusOK, "text/plain; charset=utf-8", data)
 }
 
