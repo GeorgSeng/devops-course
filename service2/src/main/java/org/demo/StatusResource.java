@@ -35,7 +35,7 @@ public class StatusResource {
        var currentTime = java.time.Instant.now();
        Log.info(currentTime);
        java.time.Duration duration = java.time.Duration.between(StartUpTime.getStartUpTime(), currentTime);
-       var upTimeInHours = duration.toSeconds()/60.0;
+       var upTimeInHours = duration.toSeconds()/3600.0;
        var usableSpace = new File("/").getUsableSpace() / (1024 * 1024); // convert bytes to mb
        var logMsg = String.format("%s: uptime %.8f hours, free disk in root: %d MBytes", currentTime.truncatedTo(ChronoUnit.SECONDS), upTimeInHours, usableSpace);
         

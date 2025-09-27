@@ -21,7 +21,6 @@ services:
       - frontend
       - backend
   service2:
-    #image: exercise1/service2
     user: root
     build: 
       context: .

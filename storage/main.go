@@ -13,6 +13,7 @@ import (
 const pathLogFile = "./log.txt"
 
 func main() {
+	fmt.Println("Hello Storage!")
 	router := gin.Default()
 
 	router.Use(gin.Logger())
@@ -42,7 +43,7 @@ func postLog(c *gin.Context) {
 		return
 	}
 	defer f.Close()
-	_, err = f.WriteString(string(body))
+	_, err = f.WriteString(string(body) + "\n")
 	if err != nil {
 		log.Printf("Could not append log message to the log file: %v\n", err)
 		c.String(http.StatusInternalServerError, "Could not append log message to the log file")

@@ -19,7 +19,7 @@ import (
 var startTime time.Time
 
 func main() {
-	fmt.Println("Hello Gabr: relay")
+	fmt.Println("Hello Service1!")
 	router := gin.Default()
 
 	router.Use(gin.Logger())
