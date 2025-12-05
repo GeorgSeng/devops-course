@@ -1,0 +1,26 @@
+= Gateway
+
+The Gateway service consists of Nginx and a Golang application that expose an API for getting a new configuration file and reload the Nginx.
+
+It is not recommended to have multiple entrypoint's in one container. In the Gateway bought are for the same business task therefore it is okay. The recommendation for such a container is to use Supervisord. That is a process manager that will be started by Docker. The Supervisord (the process manager) has a config file and starts the programs listed in that file. Furthermore, it will take care that the state of the services matches the state defined in the supervisord.conf file. This provides a clear separation of concerns where Supervisord is for keeping the services up and Golang is only for modifying the nginx.conf file and load it.
+
+== Endpoints
+
+
+|===
+| ID | Method | URL | Description
+
+| 1
+| GET
+| /health
+| Get the health of service and nginx
+
+| 2
+| POST
+| /config/nginx
+| Receives a new config file as plaintext and ties to load it.
+
+|===
+
+podman build -t gateway .\infra\gateway\
+podman run -d -p 80:80 -p 8080:8080 --name my-gateway gateway
