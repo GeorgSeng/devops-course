@@ -1,4 +1,4 @@
-package org.demo
+package org.demo.api
 
 import org.eclipse.microprofile.health.HealthCheck
 import org.eclipse.microprofile.health.HealthCheckResponse

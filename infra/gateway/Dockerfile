@@ -22,7 +22,8 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY --from=builder /app/gateway /usr/local/bin/gateway
 
 # Expose port 80 for NGINX
-EXPOSE 80
+EXPOSE 8198
+EXPOSE 8199
 # Expose port 8080 for the Golang API
 EXPOSE 8080
 # Command to run supervisord

@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  gateway:
+    #build: ./gateway
+    container_name: localhost/gateway
+    ports:
+      - "8198:8198"
+    networks:
+      - infra-network
+
+  monitor:
+    #build: ./monitor
+    container_name: localhost/monitor
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - infra-network
+
+networks:
+  infra-network:
+    driver: bridge
