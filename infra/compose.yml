@@ -1,0 +1,26 @@
+services:
+  gateway:
+    image: localhost/gateway
+    ports:
+      - "8198:8198"
+    networks:
+      - infra-network
+      - backend
+
+  monitor:
+    image: localhost/monitor
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - backend
+
+networks:
+  infra-network:
+    driver: bridge
+  # Set the subnet and gateway such that I have a fixed DNS resolver IP
+  backend:
+      ipam:
+        driver: default
+        config:
+          - subnet: 172.25.0.0/16 
+            gateway: 172.25.0.1

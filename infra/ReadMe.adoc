@@ -1,0 +1,15 @@
+= Infra
+
+== Build
+
+Bought builds are expected to be executed from the root folder
+
+Build the monitor
+----
+podman build -t monitor -f .\infra\monitor\Dockerfile .
+----
+
+Build the gateway:
+----
+podman build -t gateway .\infra\gateway\
+----
