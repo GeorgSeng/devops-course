@@ -60,3 +60,9 @@ networks:
   backend:
 volumes:
   storage_data:
+
+# How to use the nework in my deployment
+# networks:
+#  external-backend:
+#    external: true
+#    name: infra-backend
